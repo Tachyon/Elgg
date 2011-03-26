@@ -250,6 +250,10 @@ function explain_query($query, $link) {
 function execute_query($query, $dblink) {
 	global $CONFIG, $dbcalls;
 
+	$query = preg_replace("/[\r\n]/", "", $query);
+	if($query==NULL)
+		throw new DatabaseException("Invalid Query");
+
 	$dbcalls++;
 
 	$result = mysql_query($query, $dblink);
